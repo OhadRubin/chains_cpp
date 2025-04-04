@@ -10,7 +10,7 @@ class OpenAIMessageChain
 {
 public:
     // Constructor
-    OpenAIMessageChain(std::string api_key, std::string model_name = "gpt-4o");
+    OpenAIMessageChain(std::string api_key, std::string model_name = "gpt-4o", std::string api_endpoint = "api.openai.com");
 
     // Chainable Methods (return new instances)
     [[nodiscard]] OpenAIMessageChain system(const std::string &content) const;
@@ -24,6 +24,7 @@ public:
     const std::vector<Message> &messages() const;
     const std::optional<std::string> &system_prompt() const;
     const std::string &model_name() const;
+    const std::string &api_endpoint() const;
     bool has_error() const;
     const std::string &error_message() const;
 
@@ -32,6 +33,7 @@ private:
     OpenAIMessageChain(
         std::string api_key,
         std::string model_name,
+        std::string api_endpoint,
         std::optional<std::string> system_prompt,
         std::vector<Message> messages,
         std::optional<std::string> last_response,
@@ -50,6 +52,7 @@ private:
     // State variables
     std::string api_key_;
     std::string model_name_;
+    std::string api_endpoint_;
     std::optional<std::string> system_prompt_;
     std::vector<Message> messages_;
     std::optional<std::string> last_response_;

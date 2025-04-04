@@ -18,8 +18,13 @@ fi
 # Get OpenSSL path from homebrew
 OPENSSL_PATH=$(brew --prefix openssl)
 
+mkdir -p build_old
 # Compile the OpenAI API client with all source files
-g++ -std=c++17 -Wall -Wextra -pedantic chat.cpp OpenAIMessageChain.cpp -o oai_chain \
+g++ -std=c++17 -Wall -Wextra -pedantic chat.cpp OpenAIMessageChain.cpp -o build_old/oai_chat \
+    -I. -I"$OPENSSL_PATH/include" \
+    -L"$OPENSSL_PATH/lib" -lssl -lcrypto
+
+g++ -std=c++17 -Wall -Wextra -pedantic main.cpp OpenAIMessageChain.cpp -o build_old/oai_chain \
     -I. -I"$OPENSSL_PATH/include" \
     -L"$OPENSSL_PATH/lib" -lssl -lcrypto
 

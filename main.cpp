@@ -1,8 +1,9 @@
 #include <iostream>
 #include <cstdlib> // For getenv
+#include <string>
 #include "OpenAIMessageChain.h"
 
-int main()
+int main(int argc, char* argv[])
 {
     // --- Get API Key ---
     const char *api_key_cstr = std::getenv("OPENAI_API_KEY");
@@ -13,8 +14,15 @@ int main()
     }
     std::string api_key(api_key_cstr);
 
+    // --- Get API Endpoint ---
+    std::string api_endpoint = "api.openai.com"; // Default
+    if (argc > 1) {
+        api_endpoint = argv[1];
+        std::cout << "Using API endpoint: " << api_endpoint << std::endl;
+    }
+
     // --- Create and Use the Chain ---
-    OpenAIMessageChain chain(api_key); // Uses default model "gpt-4o"
+    OpenAIMessageChain chain(api_key, "gpt-4o", api_endpoint);
     
     if (chain.has_error()) {
         std::cerr << "Chain Error: " << chain.error_message() << std::endl;

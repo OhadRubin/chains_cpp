@@ -14,8 +14,9 @@ cmake --build .
 
 # Check if build was successful
 if [ $? -eq 0 ]; then
-    echo "Build successful! Executable created as 'build/oai_chain'"
-    echo "Run with: ./build/oai_chain"
+    echo "Compilation successful! Executables created as 'build/oai_chain' and 'build/oai_chat'"
+    echo "Run chain example with: ./build/oai_chain"
+    echo "Run interactive chat with: ./build/oai_chat"
 else
-    echo "Build failed"
+    echo "Compilation failed"
 fi 
